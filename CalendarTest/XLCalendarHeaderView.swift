@@ -14,7 +14,11 @@ class XLCalendarHeaderView: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = colorWithHexString("#f8f8f8")
+        self.backgroundColor = UIColor.white
+        let line = UIView.init()
+        line.frame = CGRect.init(x: 0, y: 0, width: self.bounds.width, height: 0.5)
+        line.backgroundColor = kColorSegmentLine
+        self.addSubview(line)
         self.createUI()
     }
     

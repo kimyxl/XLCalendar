@@ -13,15 +13,29 @@ let kScale = UIScreen.main.scale
 
 import SnapKit
 
-class ViewController:UIViewController {
+class ViewController:UIViewController, CalendarProtocol {
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let mycalendar = XLCalendar.init(selectedDate: XLTimeManager.createADay(year: 2019, month: 6, day: 1))
-        mycalendar.frame = CGRect.init(x: 0, y: 20, width: self.view.bounds.width, height: self.view.bounds.height-20)
-        self.view.addSubview(mycalendar)
+//        let mycalendar = XLCalendar.init(selectedDate: XLTimeManager.createADay(year: 2019, month: 6, day: 1))
+//        mycalendar.frame = CGRect.init(x: 0, y: 20, width: self.view.bounds.width, height: self.view.bounds.height-20)
+//        self.view.addSubview(mycalendar)
         
-        
+        self.view.backgroundColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let vc = CalendarVC()
+        vc.delegate = self
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func setSeletedDate(_ date: Date?) {
+        print(date)
+    }
+    
 }
 
 
@@ -59,5 +73,37 @@ func RGBA (red:CGFloat, green:CGFloat, blue:CGFloat, alpha:CGFloat)->UIColor {
 func DispatchAfter_main(after:Double, handler:@escaping()->Void) {
     DispatchQueue.main.asyncAfter(deadline: .now()+after) {
         handler()
+    }
+}
+
+
+///color
+let kColorThemeColor        = colorWithHexString("#ed8649")
+let kColorThemeLight        = colorWithHexString("#FCF1EA")
+let kColorThemeRed          = colorWithHexString("#ff1c1c")
+let kColorBlack             = colorWithHexString("#111111")
+let kColorWhite             = colorWithHexString("#ffffff")
+let kColorSegmentLine       = colorWithHexString("#d6d6d6")
+let kColorGreyWord          = colorWithHexString("#999999")
+let kColorTextGray          = colorWithHexString("#666666")
+let kColorBackgroundColor   = colorWithHexString("#fefdfc")
+//let kColorBackgroundColor = kColorThemeRed//test
+let kColorThemeGreen        = colorWithHexString("#0b9d78")
+
+//UIButton
+extension UIButton {
+    func setBackgroundColor(_ backgroundColor:UIColor, forState:UIControl.State) {
+        self.setBackgroundImage(UIButton.imageWithColor(backgroundColor), for: forState)
+    }
+    
+    fileprivate class func imageWithColor(_ color:UIColor)->UIImage {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        UIGraphicsBeginImageContext(rect.size)
+        let context = UIGraphicsGetCurrentContext()
+        context!.setFillColor(color.cgColor)
+        context!.fill(rect)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
     }
 }

@@ -50,7 +50,7 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.collectionView.frame = CGRect.init(x:0, y: 30, width: self.frame.width, height: self.frame.height-30)
+        self.collectionView.frame = CGRect.init(x:0, y: 31, width: self.frame.width, height: self.frame.height-31)
     }
     
     ///当月总天数
@@ -158,7 +158,7 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
         let layout = XLCanlendarViewLayout.init()
         layout.delegate = self
         
-        let collectionView = UICollectionView.init(frame: CGRect.init(x:0, y: 30, width: self.frame.width, height: self.frame.height-30), collectionViewLayout: layout)
+        let collectionView = UICollectionView.init(frame: CGRect.init(x:0, y: 31, width: self.frame.width, height: self.frame.height-31), collectionViewLayout: layout)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.white
@@ -192,7 +192,7 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
             let weeklabel = UILabel()
             weeklabel.frame = CGRect.init(x: leftMaigin+CGFloat(index)*eachWidth, y: 0, width: eachWidth, height: frame.height)
             weeklabel.text = str
-            weeklabel.font = UIFont.systemFont(ofSize: 14)
+            weeklabel.font = UIFont.systemFont(ofSize: 15, weight: .thin)
             weeklabel.textAlignment = .center
             weekView.addSubview(weeklabel)
         }

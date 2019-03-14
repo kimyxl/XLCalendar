@@ -27,6 +27,7 @@ class XLCalendarCell: UICollectionViewCell {
         label.backgroundColor = UIColor.clear
         label.textAlignment = .center
         label.textColor = UIColor.black
+        label.font = UIFont.systemFont(ofSize: 15)
         self.contentView.addSubview(label)
         theLable = label
         
@@ -66,7 +67,7 @@ class XLCalendarCell: UICollectionViewCell {
             if let calendarSelectedExsit = calendarExsit.selectedDate {
                 if date!.isSameDay(another: calendarSelectedExsit) {
                     textColor = UIColor.white
-                    selectedBgBolor = UIColor.orange
+                    selectedBgBolor = kColorThemeColor
                     self.selectionView.transform = self.selectionView.transform.scaledBy(x: 0.5, y: 0.5)
                     UIView.animate(withDuration: 0.08, animations: {
                         self.selectionView.transform = self.selectionView.transform.scaledBy(x: 2, y: 2)
