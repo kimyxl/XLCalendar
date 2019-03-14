@@ -16,7 +16,6 @@ class XLCanlendarViewLayout: UICollectionViewLayout {
     private var headerReferenceSize = CGSize.init(width: 0, height: 0)
     private var allAttributes = [UICollectionViewLayoutAttributes]()
     private var maxY:CGFloat = 0
-    weak var delegate:XLCalendar?
     
     override func prepare() {
         super.prepare()
@@ -40,7 +39,7 @@ class XLCanlendarViewLayout: UICollectionViewLayout {
             }
         }
         let leftMargin = (self.collectionView!.bounds.width-self.itemWidth*CGFloat(self.numbersInRow))/2.0
-        delegate?.addWeek(leftMargin)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "XLCanlendarViewLayoutCalculateItemWidthDone"), object: ["leftMargin":leftMargin])
     }
     
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {

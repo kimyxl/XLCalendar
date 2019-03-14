@@ -69,7 +69,7 @@ class XLCalendarCell: UICollectionViewCell {
                     textColor = UIColor.white
                     selectedBgBolor = kColorThemeColor
                     self.selectionView.transform = self.selectionView.transform.scaledBy(x: 0.5, y: 0.5)
-                    UIView.animate(withDuration: 0.08, animations: {
+                    UIView.animate(withDuration: 0.06, animations: {
                         self.selectionView.transform = self.selectionView.transform.scaledBy(x: 2, y: 2)
                     })
                 }

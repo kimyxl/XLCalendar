@@ -8,20 +8,20 @@
 
 import UIKit
 
-class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
+class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     private(set) var selectedDate:Date?
     private(set) var minDate:Date = Date()
     private(set) var maxDate:Date = Date()
     private(set) var today = Date()
     
-    private let cellid = "XLCalendarCellid"
-    private let headerid = "XLCalendarHeaderid"
+    private let cellid = "XLCalendarRoundTripCellid"
+    private let headerid = "XLCalendarRoundTripHeaderid"
     private var collectionView:UICollectionView!
     private var weekView:UIView?
     private var allMonth = 13
     private var firstDayInMonth = [Date]()
-
+    
     
     convenience init(selectedDate:Date?) {
         self.init(frame: .zero)
@@ -79,7 +79,7 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! XLCalendarCell
-        cell.calendar = self
+//        cell.calendar = self
         let date = self.indexpath2Date(indexPath)
         if date != nil {
             cell.setDate(date)
@@ -146,7 +146,7 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     //MARK: ----  UI
     private func createUI() {
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNoti(_:)), name: NSNotification.Name(rawValue: "XLCanlendarViewLayoutCalculateItemWidthDone"), object: nil)
         
         let year = self.today.year_digital()
@@ -185,7 +185,7 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
         self.addWeek(leftMargin)
     }
     
-    func addWeek(_ leftMaigin:CGFloat) {
+    private func addWeek(_ leftMaigin:CGFloat) {
         guard weekView == nil else { return }
         let weekview = createWeekView(frame: CGRect.init(x: collectionView.frame.origin.x, y: 0, width: collectionView.frame.width, height: 30), eachWidth: (collectionView.collectionViewLayout as! XLCanlendarViewLayout).itemWidth, leftMaigin: leftMaigin)
         weekview.backgroundColor = UIColor.white
@@ -213,3 +213,4 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
 }
+

@@ -11,6 +11,7 @@
 		AB43E24122364E40006AFDF1 /* XLCanlendarViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43E24022364E40006AFDF1 /* XLCanlendarViewLayout.swift */; };
 		AB5959C7222922F2005976A5 /* XLCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5959C6222922F2005976A5 /* XLCalendar.swift */; };
 		AB943F01223A1AB60056C1C0 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB943F00223A1AB60056C1C0 /* CalendarVC.swift */; };
+		AB943F03223A30D60056C1C0 /* XLCalendarRoundTrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB943F02223A30D60056C1C0 /* XLCalendarRoundTrip.swift */; };
 		ABA8302722267A1F0057D054 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8302622267A1F0057D054 /* AppDelegate.swift */; };
 		ABA8302922267A1F0057D054 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8302822267A1F0057D054 /* ViewController.swift */; };
 		ABA8302C22267A1F0057D054 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA8302A22267A1F0057D054 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 		AB43E24022364E40006AFDF1 /* XLCanlendarViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLCanlendarViewLayout.swift; sourceTree = "<group>"; };
 		AB5959C6222922F2005976A5 /* XLCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLCalendar.swift; sourceTree = "<group>"; };
 		AB943F00223A1AB60056C1C0 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
+		AB943F02223A30D60056C1C0 /* XLCalendarRoundTrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLCalendarRoundTrip.swift; sourceTree = "<group>"; };
 		ABA8302322267A1F0057D054 /* CalendarTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA8302622267A1F0057D054 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABA8302822267A1F0057D054 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -94,8 +96,9 @@
 				ABA8303222267A200057D054 /* Info.plist */,
 				ABA8303C22267E9A0057D054 /* XLCalendarCell.swift */,
 				AB376029222786B10028F48B /* XLCalendarHeaderView.swift */,
-				AB5959C6222922F2005976A5 /* XLCalendar.swift */,
 				AB43E24022364E40006AFDF1 /* XLCanlendarViewLayout.swift */,
+				AB5959C6222922F2005976A5 /* XLCalendar.swift */,
+				AB943F02223A30D60056C1C0 /* XLCalendarRoundTrip.swift */,
 				AB943F00223A1AB60056C1C0 /* CalendarVC.swift */,
 			);
 			path = CalendarTest;
@@ -236,6 +239,7 @@
 				AB43E24122364E40006AFDF1 /* XLCanlendarViewLayout.swift in Sources */,
 				AB943F01223A1AB60056C1C0 /* CalendarVC.swift in Sources */,
 				ABA8303A22267B000057D054 /* XLTimeManager+Extension.swift in Sources */,
+				AB943F03223A30D60056C1C0 /* XLCalendarRoundTrip.swift in Sources */,
 				ABA8302722267A1F0057D054 /* AppDelegate.swift in Sources */,
 				AB37602A222786B10028F48B /* XLCalendarHeaderView.swift in Sources */,
 			);
