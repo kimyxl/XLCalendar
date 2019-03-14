@@ -60,42 +60,6 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     //MARK: ------------- DataSource & Delegate----------------------
-    private lazy var suspendView:UILabel = {
-        let v = UILabel()
-        v.textAlignment = .center
-        v.frame = CGRect.init(x: 0, y: 30, width: self.collectionView.bounds.width, height: 30)
-        self.addSubview(v)
-        return v
-    }()
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard scrollView is UICollectionView else { return }
-        
-        let visArr = self.collectionView.visibleSupplementaryViews(ofKind: UICollectionView.elementKindSectionHeader)
-        for supV in visArr {
-            let sup = supV as! XLCalendarHeaderView
-            // || sup.monthLabel.text! == "April  2019"
-            if sup.monthLabel.text! != "May  2019" {
-                continue
-            }
-            print(sup.frame)
-            let rect = sup.convert(sup.frame, to: collectionView)
-            print(rect)
-            let rect1 = sup.convert(sup.frame, to: self)
-            print(rect1)
-            print(sup.monthLabel.text!)
-        }
-        
-        for supV in visArr {
-            let sup = supV as! XLCalendarHeaderView
-            let rect = sup.convert(sup.frame, to: self)
-            if rect.origin.y-sup.frame.origin.y <= 30 {
-                suspendView.text = sup.monthLabel.text
-            }
-        }
-        
-        
-    }
-    
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.allMonth
@@ -207,7 +171,7 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
         self.collectionView = collectionView
         if let selectedDate = self.selectedDate {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.6) {
-//                self.collectionView.scrollToItem(at: self.date2Indexpath(selectedDate), at: .centeredVertically, animated: true)
+                self.collectionView.scrollToItem(at: self.date2Indexpath(selectedDate), at: .centeredVertically, animated: true)
             }
         }
     }
@@ -232,10 +196,10 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
             weeklabel.textAlignment = .center
             weekView.addSubview(weeklabel)
         }
-        let line = UIView()
-        line.backgroundColor = UIColor.lightGray
-        line.frame = CGRect.init(x: frame.origin.x, y: frame.height-0.5, width: frame.width, height: 0.5)
-        weekView.addSubview(line)
+        weekView.layer.shadowOpacity = 0.3
+        weekView.layer.shadowOffset = CGSize.init(width: 0, height: 3)
+        weekView.layer.shadowColor = UIColor.black.cgColor
+        weekView.layer.shadowRadius = 2
         return weekView
     }
     

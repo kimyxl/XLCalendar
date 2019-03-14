@@ -34,7 +34,7 @@ class XLCalendarCell: UICollectionViewCell {
         selectionView.backgroundColor = UIColor.clear
         selectionView.frame = self.bounds
         selectionView.alpha = 1
-        selectionView.layer.cornerRadius = 3
+        selectionView.layer.cornerRadius = 2
         self.contentView.addSubview(selectionView)
         
         self.contentView.bringSubviewToFront(theLable)
@@ -43,6 +43,13 @@ class XLCalendarCell: UICollectionViewCell {
     func setDate(_ date:Date?) {
         guard let calendarExsit = calendar else {return}
         self.calendarDate = date
+        defer {
+            if date == nil {
+                theLable.text = ""
+                theLable.textColor = UIColor.clear
+                selectionView.backgroundColor = UIColor.clear
+            }
+        }
         if date != nil {
             var textColor:UIColor = UIColor.black
             var selectedBgBolor = UIColor.clear
@@ -60,17 +67,14 @@ class XLCalendarCell: UICollectionViewCell {
                 if date!.isSameDay(another: calendarSelectedExsit) {
                     textColor = UIColor.white
                     selectedBgBolor = UIColor.orange
+                    self.selectionView.transform = self.selectionView.transform.scaledBy(x: 0.5, y: 0.5)
+                    UIView.animate(withDuration: 0.08, animations: {
+                        self.selectionView.transform = self.selectionView.transform.scaledBy(x: 2, y: 2)
+                    })
                 }
             }
             theLable.textColor = textColor
             selectionView.backgroundColor = selectedBgBolor
-        }
-        defer {
-            if date == nil {
-                theLable.text = ""
-                theLable.textColor = UIColor.clear
-                selectionView.backgroundColor = UIColor.clear
-            }
         }
     }
     
