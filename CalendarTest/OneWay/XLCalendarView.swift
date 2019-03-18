@@ -8,7 +8,7 @@
 
 import UIKit
 
-class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
+class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     private(set) var selectedDate:Date?
     private(set) var minDate:Date = Date()

@@ -13,7 +13,9 @@ let kScale = UIScreen.main.scale
 
 import SnapKit
 
-class ViewController:UIViewController, CalendarProtocol {
+class ViewController:UIViewController, CalendarProtocol, Calendar2DayProtocol {
+    
+    
     
     
     override func viewDidLoad() {
@@ -27,9 +29,14 @@ class ViewController:UIViewController, CalendarProtocol {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let vc = CalendarRoundTripVC()
+        let vc = Calendar2DayVC()
         vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func setSeletedDate(_ dateDepart: Date, _ dateReturn: Date) {
+        print(dateDepart)
+        print(dateReturn)
     }
     
     func setSeletedDate(_ date: Date?) {

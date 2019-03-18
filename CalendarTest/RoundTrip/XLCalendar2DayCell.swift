@@ -8,14 +8,14 @@
 
 import UIKit
 
-class XLCalendarRoundTripCell: UICollectionViewCell {
+class XLCalendar2DayCell: UICollectionViewCell {
     
     enum RoundTripType {
         case departTrip
         case returnTrip
     }
     
-    weak var calendar:XLCalendarRoundTrip?
+    weak var calendar:XLCalendar2DayView?
     
     private var theLable:UILabel!
     private var calendarDate:Date?

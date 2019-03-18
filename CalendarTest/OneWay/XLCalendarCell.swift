@@ -10,7 +10,7 @@ import UIKit
 
 class XLCalendarCell: UICollectionViewCell {
     
-    weak var calendar:XLCalendar?
+    weak var calendar:XLCalendarView?
     
     private var theLable:UILabel!
     private var calendarDate:Date?
@@ -33,10 +33,14 @@ class XLCalendarCell: UICollectionViewCell {
         
         selectionView = UIView()
         selectionView.backgroundColor = UIColor.clear
-        selectionView.frame = self.bounds
         selectionView.alpha = 1
         selectionView.layer.cornerRadius = 2
         self.contentView.addSubview(selectionView)
+        selectionView.snp.makeConstraints { (make) in
+            make.width.equalToSuperview()
+            make.height.equalTo(50)
+            make.center.equalToSuperview()
+        }
         
         self.contentView.bringSubviewToFront(theLable)
     }

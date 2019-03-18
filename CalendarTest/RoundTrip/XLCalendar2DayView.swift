@@ -8,7 +8,7 @@
 
 import UIKit
 
-class XLCalendar2Day: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
+class XLCalendar2DayView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     private(set) var selectedDepartDate:Date?
     private(set) var selectedReturnDate:Date?
@@ -148,6 +148,7 @@ class XLCalendar2Day: UIView, UICollectionViewDelegate, UICollectionViewDataSour
             self.selectedReturnDate = nil
         }
         collectionView.reloadData()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "XLCalendar2DayViewDidSelecteAnItem"), object: nil)
     }
     
     //MARK: ----  functions --------

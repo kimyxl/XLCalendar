@@ -14,12 +14,12 @@ protocol CalendarProtocol:class {
 
 class CalendarVC: UIViewController {
     weak var delegate:CalendarProtocol?
-    private var calendar:XLCalendar!
+    private var calendar:XLCalendarView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = UIColor.white
-        let calendarView = XLCalendar.init(selectedDate: Date())
+        let calendarView = XLCalendarView.init(selectedDate: Date())
         self.calendar = calendarView
         self.view.addSubview(calendarView)
         let bottomView = getBottomView()

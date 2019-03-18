@@ -10,9 +10,9 @@ import UIKit
 
 class XLCanlendarViewLayout: UICollectionViewLayout {
     
-    var itemWidth:CGFloat = 0
+    private(set) var itemWidth:CGFloat = 0
     let numbersInRow:Int = 7
-    private var itemHeight:CGFloat = 0
+    private var itemHeight:CGFloat = 55
     private var headerReferenceSize = CGSize.init(width: 0, height: 0)
     private var allAttributes = [UICollectionViewLayoutAttributes]()
     private var maxY:CGFloat = 0
@@ -20,7 +20,7 @@ class XLCanlendarViewLayout: UICollectionViewLayout {
     override func prepare() {
         super.prepare()
         self.itemWidth = CGFloat(floorf(Float(self.collectionView!.bounds.width/CGFloat(self.numbersInRow))))
-        self.itemHeight = self.itemWidth
+        //self.itemHeight = self.itemWidth
         self.headerReferenceSize = CGSize.init(width: self.itemWidth*CGFloat(self.numbersInRow), height: 35)
         self.maxY = 0
         let sectionCounts = self.collectionView!.numberOfSections
