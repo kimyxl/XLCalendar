@@ -8,9 +8,14 @@
 
 import UIKit
 
+
+protocol CalendarRoundTripProtocol:class {
+    func setSeletedDate(_ dateDepart:Date, _ dateReturn:Date)
+}
+
 class CalendarRoundTripVC: UIViewController {
 
-    weak var delegate:CalendarProtocol?
+    weak var delegate:CalendarRoundTripProtocol?
     private var calendar:XLCalendarRoundTrip!
     
     override func viewDidLoad() {
@@ -26,8 +31,11 @@ class CalendarRoundTripVC: UIViewController {
             make.top.left.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
-        
-        
-    
     }
+    
+    private func bottomView() {
+        
+    }
+    
+    
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
+class XLCalendar2Day: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     private(set) var selectedDepartDate:Date?
     private(set) var selectedReturnDate:Date?
@@ -107,7 +107,7 @@ class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! XLCalendarRoundTripCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! XLCalendar2DayCell
         cell.calendar = self
         let date = self.indexpath2Date(indexPath)
         if date != nil {
@@ -206,7 +206,7 @@ class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDat
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         self.addSubview(collectionView)
-        collectionView.register(XLCalendarRoundTripCell.self, forCellWithReuseIdentifier: cellid)
+        collectionView.register(XLCalendar2DayCell.self, forCellWithReuseIdentifier: cellid)
         collectionView.register(XLCalendarHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerid)
         
         self.collectionView = collectionView
