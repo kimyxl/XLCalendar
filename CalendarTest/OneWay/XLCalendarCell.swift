@@ -56,8 +56,8 @@ class XLCalendarCell: UICollectionViewCell {
             var selectedBgBolor = UIColor.clear
             //范围判断
             theLable.text = "\(date!.day_digital())"
-            let bool1 = date!.isBefore(day: calendarExsit.minDate)
-            let bool2 = date!.isAfter(day: calendarExsit.maxDate)
+            let bool1 = date!.isBefore(calendarExsit.minDate)
+            let bool2 = date!.isAfter(calendarExsit.maxDate)
             if bool1 || bool2 {
                 textColor = UIColor.lightGray
             } else {
@@ -65,7 +65,7 @@ class XLCalendarCell: UICollectionViewCell {
             }
             //选中判断
             if let calendarSelectedExsit = calendarExsit.selectedDate {
-                if date!.isSameDay(another: calendarSelectedExsit) {
+                if date!.isSameDay(calendarSelectedExsit) {
                     textColor = UIColor.white
                     selectedBgBolor = kColorThemeColor
                     self.selectionView.transform = self.selectionView.transform.scaledBy(x: 0.5, y: 0.5)

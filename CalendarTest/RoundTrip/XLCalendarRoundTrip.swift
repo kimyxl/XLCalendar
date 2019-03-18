@@ -8,22 +8,28 @@
 
 import UIKit
 
-class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
+class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    private(set) var selectedDate:Date?
+    private(set) var selectedDepartDate:Date?
+    private(set) var selectedReturnDate:Date?
     private(set) var minDate:Date = Date()
     private(set) var maxDate:Date = Date()
     private(set) var today = Date()
     
-    private let cellid = "XLCalendarCellid"
-    private let headerid = "XLCalendarHeaderid"
+    private let cellid = "XLCalendarRoundTripCellid"
+    private let headerid = "XLCalendarRoundTripHeaderid"
     private var collectionView:UICollectionView!
     private var weekView:UIView?
     private var allMonth = 13
     private var firstDayInMonth = [Date]()
-
     
-    convenience init(selectedDate:Date?) {
+    enum TripSelectState {
+        case shouldChooseDepart
+        case shouldChooseReturn
+        case done
+    }
+    
+    convenience init(selectedDepartDate:Date?, selectedReturnDate:Date?) {
         self.init(frame: .zero)
         self.today = self.get0ClockDate(Date())
         self.minDate = self.get0ClockDate(self.minDate)
@@ -31,11 +37,21 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
         self.allMonth = self.minDate.differMonths(date: self.maxDate)+1
         guard self.allMonth>0 else { return }
         
-        if let selectedDate = selectedDate {
-            if selectedDate.isBefore(day: self.maxDate) && selectedDate.isAfter(day: self.minDate) || selectedDate.isSameDay(another: self.maxDate) || selectedDate.isSameDay(another: self.minDate) {
-                self.selectedDate = self.get0ClockDate(selectedDate)
+        func handleSelectedDates(_ selectedDate:Date) -> Date? {
+            if selectedDate.isBefore(self.maxDate) && selectedDate.isAfter(self.minDate) || selectedDate.isSameDay(self.maxDate) || selectedDate.isSameDay(self.minDate) {
+                return self.get0ClockDate(selectedDate)
             }
+            return nil
         }
+        
+        if let departDate = selectedDepartDate {
+            self.selectedDepartDate = handleSelectedDates(departDate)
+        }
+        
+        if let returnDate = selectedReturnDate {
+            self.selectedReturnDate = handleSelectedDates(returnDate)
+        }
+        
         self.createUI()
     }
     
@@ -51,6 +67,19 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.collectionView.frame = CGRect.init(x:0, y: 31, width: self.frame.width, height: self.frame.height-31)
+    }
+    
+    private func judgeTripState() -> TripSelectState {
+        if self.selectedDepartDate == nil {
+            if self.selectedReturnDate != nil {
+                self.selectedReturnDate = nil
+            }
+            return .shouldChooseDepart
+        }
+        if self.selectedDepartDate != nil && self.selectedReturnDate == nil {
+            return .shouldChooseReturn
+        }
+        return .done
     }
     
     ///当月总天数
@@ -78,7 +107,7 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! XLCalendarCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! XLCalendarRoundTripCell
         cell.calendar = self
         let date = self.indexpath2Date(indexPath)
         if date != nil {
@@ -100,14 +129,25 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let date = self.indexpath2Date(indexPath)
         guard let dateExsit = date else {return}
-        let bool1 = dateExsit.isAfter(day: self.minDate)
-        let bool2 = dateExsit.isBefore(day: self.maxDate)
-        let bool3 = (dateExsit.isSameDay(another: self.minDate))
-        let bool4 = (dateExsit.isSameDay(another: self.maxDate))
-        if (bool1 && bool2) || bool3 || bool4 {
-            self.selectedDate = date
-            collectionView.reloadData()
+        let bool1 = dateExsit.isAfter(self.minDate)
+        let bool2 = dateExsit.isBefore(self.maxDate)
+        let bool3 = (dateExsit.isSameDay(self.minDate))
+        let bool4 = (dateExsit.isSameDay(self.maxDate))
+        guard (bool1 && bool2) || bool3 || bool4 else {return}
+        if judgeTripState() == .shouldChooseDepart {
+            self.selectedDepartDate = dateExsit
+        } else if judgeTripState() == .shouldChooseReturn {
+            if dateExsit.isBefore(self.selectedDepartDate!) {
+                self.selectedDepartDate = dateExsit
+                self.selectedReturnDate = nil
+            } else {
+                self.selectedReturnDate = dateExsit
+            }
+        } else if judgeTripState() == .done {
+            self.selectedDepartDate = dateExsit
+            self.selectedReturnDate = nil
         }
+        collectionView.reloadData()
     }
     
     //MARK: ----  functions --------
@@ -146,7 +186,7 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     //MARK: ----  UI
     private func createUI() {
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNoti(_:)), name: NSNotification.Name(rawValue: "XLCanlendarViewLayoutCalculateItemWidthDone"), object: nil)
         
         let year = self.today.year_digital()
@@ -166,11 +206,11 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         self.addSubview(collectionView)
-        collectionView.register(XLCalendarCell.self, forCellWithReuseIdentifier: cellid)
+        collectionView.register(XLCalendarRoundTripCell.self, forCellWithReuseIdentifier: cellid)
         collectionView.register(XLCalendarHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerid)
         
         self.collectionView = collectionView
-        if let selectedDate = self.selectedDate {
+        if let selectedDate = self.selectedDepartDate {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.6) {
                 self.collectionView.scrollToItem(at: self.date2Indexpath(selectedDate), at: .centeredVertically, animated: true)
             }
@@ -185,7 +225,7 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
         self.addWeek(leftMargin)
     }
     
-    func addWeek(_ leftMaigin:CGFloat) {
+    private func addWeek(_ leftMaigin:CGFloat) {
         guard weekView == nil else { return }
         let weekview = createWeekView(frame: CGRect.init(x: collectionView.frame.origin.x, y: 0, width: collectionView.frame.width, height: 30), eachWidth: (collectionView.collectionViewLayout as! XLCanlendarViewLayout).itemWidth, leftMaigin: leftMaigin)
         weekview.backgroundColor = UIColor.white
@@ -213,3 +253,4 @@ class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
 }
+

@@ -100,19 +100,19 @@ extension Date {
         fatalError("create Date failure")
     }
     
-    func isSameDay(another:Date) -> Bool {
+    func isSameDay(_ another:Date) -> Bool {
         let days = self.dayInterval(another: another)
         if days == 0 { return true }
         return false
     }
-    
-    func isBefore(day beforeDate:Date) -> Bool {
+    ///不包含!
+    func isBefore(_ beforeDate:Date) -> Bool {
         let days = self.dayInterval(another: beforeDate)
         if days > 0 { return true }
         return false
     }
-    
-    func isAfter(day afterDay:Date) -> Bool {
+    ///不包含!
+    func isAfter(_ afterDay:Date) -> Bool {
         let days = self.dayInterval(another: afterDay)
         if days < 0 { return true }
         return false

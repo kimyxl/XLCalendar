@@ -8,20 +8,20 @@
 
 import UIKit
 
-class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
+class XLCalendar: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
     private(set) var selectedDate:Date?
     private(set) var minDate:Date = Date()
     private(set) var maxDate:Date = Date()
     private(set) var today = Date()
     
-    private let cellid = "XLCalendarRoundTripCellid"
-    private let headerid = "XLCalendarRoundTripHeaderid"
+    private let cellid = "XLCalendarCellid"
+    private let headerid = "XLCalendarHeaderid"
     private var collectionView:UICollectionView!
     private var weekView:UIView?
     private var allMonth = 13
     private var firstDayInMonth = [Date]()
-    
+
     
     convenience init(selectedDate:Date?) {
         self.init(frame: .zero)
@@ -32,7 +32,7 @@ class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDat
         guard self.allMonth>0 else { return }
         
         if let selectedDate = selectedDate {
-            if selectedDate.isBefore(day: self.maxDate) && selectedDate.isAfter(day: self.minDate) || selectedDate.isSameDay(another: self.maxDate) || selectedDate.isSameDay(another: self.minDate) {
+            if selectedDate.isBefore(self.maxDate) && selectedDate.isAfter(self.minDate) || selectedDate.isSameDay(self.maxDate) || selectedDate.isSameDay(self.minDate) {
                 self.selectedDate = self.get0ClockDate(selectedDate)
             }
         }
@@ -79,7 +79,7 @@ class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! XLCalendarCell
-//        cell.calendar = self
+        cell.calendar = self
         let date = self.indexpath2Date(indexPath)
         if date != nil {
             cell.setDate(date)
@@ -100,10 +100,10 @@ class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let date = self.indexpath2Date(indexPath)
         guard let dateExsit = date else {return}
-        let bool1 = dateExsit.isAfter(day: self.minDate)
-        let bool2 = dateExsit.isBefore(day: self.maxDate)
-        let bool3 = (dateExsit.isSameDay(another: self.minDate))
-        let bool4 = (dateExsit.isSameDay(another: self.maxDate))
+        let bool1 = dateExsit.isAfter(self.minDate)
+        let bool2 = dateExsit.isBefore(self.maxDate)
+        let bool3 = (dateExsit.isSameDay(self.minDate))
+        let bool4 = (dateExsit.isSameDay(self.maxDate))
         if (bool1 && bool2) || bool3 || bool4 {
             self.selectedDate = date
             collectionView.reloadData()
@@ -146,7 +146,7 @@ class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDat
     
     //MARK: ----  UI
     private func createUI() {
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNoti(_:)), name: NSNotification.Name(rawValue: "XLCanlendarViewLayoutCalculateItemWidthDone"), object: nil)
         
         let year = self.today.year_digital()
@@ -185,7 +185,7 @@ class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDat
         self.addWeek(leftMargin)
     }
     
-    private func addWeek(_ leftMaigin:CGFloat) {
+    func addWeek(_ leftMaigin:CGFloat) {
         guard weekView == nil else { return }
         let weekview = createWeekView(frame: CGRect.init(x: collectionView.frame.origin.x, y: 0, width: collectionView.frame.width, height: 30), eachWidth: (collectionView.collectionViewLayout as! XLCanlendarViewLayout).itemWidth, leftMaigin: leftMaigin)
         weekview.backgroundColor = UIColor.white
@@ -205,7 +205,7 @@ class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDat
             weeklabel.textAlignment = .center
             weekView.addSubview(weeklabel)
         }
-        weekView.layer.shadowOpacity = 0.3
+        weekView.layer.shadowOpacity = 0.16
         weekView.layer.shadowOffset = CGSize.init(width: 0, height: 3)
         weekView.layer.shadowColor = UIColor.black.cgColor
         weekView.layer.shadowRadius = 2
@@ -213,4 +213,3 @@ class XLCalendarRoundTrip: UIView, UICollectionViewDelegate, UICollectionViewDat
     }
     
 }
-
