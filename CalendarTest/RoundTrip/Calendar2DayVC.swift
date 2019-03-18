@@ -161,6 +161,7 @@ class Calendar2DayVC: UIViewController {
         midLabel.textColor = UIColor.white
         midLabel.font = UIFont.systemFont(ofSize: 11)
         midLabel.numberOfLines = 0
+        midLabel.textAlignment = .center
         bgView.addSubview(midLabel)
         self.midLabel = midLabel
         midLabel.snp.makeConstraints { (make) in
