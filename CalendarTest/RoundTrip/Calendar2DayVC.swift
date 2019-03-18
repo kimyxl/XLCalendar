@@ -9,7 +9,7 @@
 import UIKit
 
 protocol Calendar2DayProtocol:class {
-    func setSeletedDate(_ dateDepart:Date, _ dateReturn:Date)
+    func setSeletedDates(_ dateDepart:Date, _ dateReturn:Date)
 }
 
 class Calendar2DayVC: UIViewController {
@@ -64,7 +64,7 @@ class Calendar2DayVC: UIViewController {
     
     @objc private func confirmAction() {
         if let _1day = calendar.startDate, let _2day = calendar.endDate {
-            delegate?.setSeletedDate(_1day, _2day)
+            delegate?.setSeletedDates(_1day, _2day)
         }
     }
     

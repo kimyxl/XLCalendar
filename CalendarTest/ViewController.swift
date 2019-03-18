@@ -20,21 +20,18 @@ class ViewController:UIViewController, CalendarProtocol, Calendar2DayProtocol {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        let mycalendar = XLCalendar.init(selectedDate: XLTimeManager.createADay(year: 2019, month: 6, day: 1))
-//        mycalendar.frame = CGRect.init(x: 0, y: 20, width: self.view.bounds.width, height: self.view.bounds.height-20)
-//        self.view.addSubview(mycalendar)
         
         self.view.backgroundColor = UIColor.white
         self.navigationController?.navigationBar.isTranslucent = false
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let vc = Calendar2DayVC()
+        let vc = Calendar2DayVC.init(strat: Date(), end: nil, type: .hotel)
         vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    func setSeletedDate(_ dateDepart: Date, _ dateReturn: Date) {
+    func setSeletedDates(_ dateDepart: Date, _ dateReturn: Date) {
         print(dateDepart)
         print(dateReturn)
     }
