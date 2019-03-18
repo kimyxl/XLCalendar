@@ -88,19 +88,19 @@ class XLCalendar2DayCell: UICollectionViewCell {
                 textColor = UIColor.black
             }
             //选中判断
-            if let departDateE = calendarExsit.selectedDepartDate {
+            if let departDateE = calendarExsit.startDate {
                 if date!.isSameDay(departDateE) {
                     textColor = UIColor.white
                     type = .departTrip
                 }
             }
-            if let returnDateE = calendarExsit.selectedReturnDate {
+            if let returnDateE = calendarExsit.endDate {
                 if date!.isSameDay(returnDateE) {
                     textColor = UIColor.white
                     type = .returnTrip
                 }
             }
-            if let departDateE = calendarExsit.selectedDepartDate, let returnDateE = calendarExsit.selectedReturnDate {
+            if let departDateE = calendarExsit.startDate, let returnDateE = calendarExsit.endDate {
                 if  date!.isSameDay(departDateE) && departDateE.isSameDay(returnDateE) {
                     bgColor = kColorThemeColor
                     cornerRadius = 2

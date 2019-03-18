@@ -10,8 +10,8 @@ import UIKit
 
 class XLCalendar2DayView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    private(set) var selectedDepartDate:Date?
-    private(set) var selectedReturnDate:Date?
+    private(set) var startDate:Date?
+    private(set) var endDate:Date?
     private(set) var minDate:Date = Date()
     private(set) var maxDate:Date = Date()
     private(set) var today = Date()
@@ -29,7 +29,7 @@ class XLCalendar2DayView: UIView, UICollectionViewDelegate, UICollectionViewData
         case done
     }
     
-    convenience init(selectedDepartDate:Date?, selectedReturnDate:Date?) {
+    convenience init(start:Date?, end:Date?) {
         self.init(frame: .zero)
         self.today = self.get0ClockDate(Date())
         self.minDate = self.get0ClockDate(self.minDate)
@@ -44,12 +44,12 @@ class XLCalendar2DayView: UIView, UICollectionViewDelegate, UICollectionViewData
             return nil
         }
         
-        if let departDate = selectedDepartDate {
-            self.selectedDepartDate = handleSelectedDates(departDate)
+        if let startDate = start {
+            self.startDate = handleSelectedDates(startDate)
         }
         
-        if let returnDate = selectedReturnDate {
-            self.selectedReturnDate = handleSelectedDates(returnDate)
+        if let endDate = end {
+            self.endDate = handleSelectedDates(endDate)
         }
         
         self.createUI()
@@ -70,13 +70,13 @@ class XLCalendar2DayView: UIView, UICollectionViewDelegate, UICollectionViewData
     }
     
     private func judgeTripState() -> TripSelectState {
-        if self.selectedDepartDate == nil {
-            if self.selectedReturnDate != nil {
-                self.selectedReturnDate = nil
+        if self.startDate == nil {
+            if self.endDate != nil {
+                self.endDate = nil
             }
             return .shouldChooseDepart
         }
-        if self.selectedDepartDate != nil && self.selectedReturnDate == nil {
+        if self.startDate != nil && self.endDate == nil {
             return .shouldChooseReturn
         }
         return .done
@@ -135,17 +135,17 @@ class XLCalendar2DayView: UIView, UICollectionViewDelegate, UICollectionViewData
         let bool4 = (dateExsit.isSameDay(self.maxDate))
         guard (bool1 && bool2) || bool3 || bool4 else {return}
         if judgeTripState() == .shouldChooseDepart {
-            self.selectedDepartDate = dateExsit
+            self.startDate = dateExsit
         } else if judgeTripState() == .shouldChooseReturn {
-            if dateExsit.isBefore(self.selectedDepartDate!) {
-                self.selectedDepartDate = dateExsit
-                self.selectedReturnDate = nil
+            if dateExsit.isBefore(self.startDate!) {
+                self.startDate = dateExsit
+                self.endDate = nil
             } else {
-                self.selectedReturnDate = dateExsit
+                self.endDate = dateExsit
             }
         } else if judgeTripState() == .done {
-            self.selectedDepartDate = dateExsit
-            self.selectedReturnDate = nil
+            self.startDate = dateExsit
+            self.endDate = nil
         }
         collectionView.reloadData()
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "XLCalendar2DayViewDidSelecteAnItem"), object: nil)
@@ -211,7 +211,7 @@ class XLCalendar2DayView: UIView, UICollectionViewDelegate, UICollectionViewData
         collectionView.register(XLCalendarHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerid)
         
         self.collectionView = collectionView
-        if let selectedDate = self.selectedDepartDate {
+        if let selectedDate = self.startDate {
             DispatchQueue.main.asyncAfter(deadline: .now()+0.6) {
                 self.collectionView.scrollToItem(at: self.date2Indexpath(selectedDate), at: .centeredVertically, animated: true)
             }

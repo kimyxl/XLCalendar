@@ -43,7 +43,7 @@ class Calendar2DayVC: UIViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = UIColor.white
-        let calendarView = XLCalendar2DayView.init(selectedDepartDate: _startDate, selectedReturnDate: _endDate)
+        let calendarView = XLCalendar2DayView.init(start: _startDate, end: _endDate)
         self.calendar = calendarView
         self.view.addSubview(calendarView)
         
@@ -63,7 +63,7 @@ class Calendar2DayVC: UIViewController {
     }
     
     @objc private func confirmAction() {
-        if let _1day = calendar.selectedDepartDate, let _2day = calendar.selectedReturnDate {
+        if let _1day = calendar.startDate, let _2day = calendar.endDate {
             delegate?.setSeletedDate(_1day, _2day)
         }
     }
@@ -73,17 +73,17 @@ class Calendar2DayVC: UIViewController {
     }
     
     private func dealDatesDisplay() {
-        if let dDate =  calendar.selectedDepartDate {
+        if let dDate =  calendar.startDate {
             leftLabel.text = dDate.dateString(.combineHome)
         } else {
             leftLabel.text = " "
         }
-        if let rDate = calendar.selectedReturnDate {
+        if let rDate = calendar.endDate {
             rightLabel.text = rDate.dateString(.combineHome)
         } else {
             rightLabel.text = " "
         }
-        if calendar.selectedDepartDate == nil || calendar.selectedReturnDate == nil {
+        if calendar.startDate == nil || calendar.endDate == nil {
             if self.type == .flight {
                 midLabel.text = "- DAYS"
             } else if self.type == .hotel {
@@ -91,7 +91,7 @@ class Calendar2DayVC: UIViewController {
             }
         }
         
-        if let dDate =  calendar.selectedDepartDate, let rDate = calendar.selectedReturnDate {
+        if let dDate =  calendar.startDate, let rDate = calendar.endDate {
             let dif = dDate.dayInterval(another: rDate)
             if self.type == .flight {
                 if dif != 0 {
