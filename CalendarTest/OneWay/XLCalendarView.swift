@@ -25,15 +25,15 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
     
     convenience init(selectedDate:Date?) {
         self.init(frame: .zero)
-        self.today = self.get0ClockDate(Date())
-        self.minDate = self.get0ClockDate(self.minDate)
+        self.today = Date().getGMT0ClockDate()
+        self.minDate = self.minDate.getGMT0ClockDate()
         self.maxDate = self.minDate.adding(day: 0, month: 0, year: 1)!
         self.allMonth = self.minDate.differMonths(date: self.maxDate)+1
         guard self.allMonth>0 else { return }
         
         if let selectedDate = selectedDate {
             if selectedDate.isBefore(self.maxDate) && selectedDate.isAfter(self.minDate) || selectedDate.isSameDay(self.maxDate) || selectedDate.isSameDay(self.minDate) {
-                self.selectedDate = self.get0ClockDate(selectedDate)
+                self.selectedDate = selectedDate.getGMT0ClockDate()
             }
         }
         self.createUI()
@@ -137,11 +137,6 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
             return date
         }
         return nil
-    }
-    
-    private func get0ClockDate(_ localDate:Date) -> Date {
-        let dateComponents = Calendar.current.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year, Calendar.Component.hour], from: localDate)
-        return XLTimeManager.createADay(year: dateComponents.year!, month: dateComponents.month!, day: dateComponents.day!)!
     }
     
     //MARK: ----  UI

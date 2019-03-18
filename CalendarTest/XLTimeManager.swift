@@ -90,14 +90,16 @@ extension Date {
         return calculatedDate
     }
     
+    func getGMT0ClockDate() -> Date {
+        let dateComponents = Calendar.current.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: self)
+        return XLTimeManager.createADay(year: dateComponents.year!, month: dateComponents.month!, day: dateComponents.day!)!
+    }
+    
     //无视时分秒计算日期差值
     func dayInterval(another:Date) -> Int {
-        let date1 = XLTimeManager.createADay(year: self.year_digital(), month:  self.month_digital(), day: self.day_digital())
-        let date2 = XLTimeManager.createADay(year: another.year_digital(), month:  another.month_digital(), day: another.day_digital())
-        if let dateR1 = date1, let dateR2 = date2 {
-            return dateR1.differDays(date:dateR2)
-        }
-        fatalError("create Date failure")
+        let date1 = self.getGMT0ClockDate()
+        let date2 = another.getGMT0ClockDate()
+        return date1.differDays(date:date2)
     }
     
     func isSameDay(_ another:Date) -> Bool {

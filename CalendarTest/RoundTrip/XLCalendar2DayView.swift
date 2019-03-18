@@ -31,15 +31,15 @@ class XLCalendar2DayView: UIView, UICollectionViewDelegate, UICollectionViewData
     
     convenience init(start:Date?, end:Date?) {
         self.init(frame: .zero)
-        self.today = self.get0ClockDate(Date())
-        self.minDate = self.get0ClockDate(self.minDate)
+        self.today = Date().getGMT0ClockDate()
+        self.minDate = self.minDate.getGMT0ClockDate()
         self.maxDate = self.minDate.adding(day: 0, month: 0, year: 1)!
         self.allMonth = self.minDate.differMonths(date: self.maxDate)+1
         guard self.allMonth>0 else { return }
         
         func handleSelectedDates(_ selectedDate:Date) -> Date? {
             if selectedDate.isBefore(self.maxDate) && selectedDate.isAfter(self.minDate) || selectedDate.isSameDay(self.maxDate) || selectedDate.isSameDay(self.minDate) {
-                return self.get0ClockDate(selectedDate)
+                return selectedDate.getGMT0ClockDate()
             }
             return nil
         }
@@ -178,11 +178,6 @@ class XLCalendar2DayView: UIView, UICollectionViewDelegate, UICollectionViewData
             return date
         }
         return nil
-    }
-    
-    private func get0ClockDate(_ localDate:Date) -> Date {
-        let dateComponents = Calendar.current.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year, Calendar.Component.hour], from: localDate)
-        return XLTimeManager.createADay(year: dateComponents.year!, month: dateComponents.month!, day: dateComponents.day!)!
     }
     
     //MARK: ----  UI
