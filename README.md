@@ -1,4 +1,4 @@
 # XLCalendar
 a calendar
 
-![image](https://github.com/kimyxl/XLCalendar/blob/master/demo.gif =200x)
+![image](https://github.com/kimyxl/XLCalendar/blob/master/demo.gif)
