@@ -7,13 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AB261279223F2DBC004422E5 /* XLCalendar2DayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB261278223F2DBC004422E5 /* XLCalendar2DayCell.swift */; };
-		AB26127B223F2E0E004422E5 /* Calendar2DayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB26127A223F2E0E004422E5 /* Calendar2DayVC.swift */; };
+		AB3107E82240FC3C00F9A531 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3107E52240FC3C00F9A531 /* CalendarVC.swift */; };
+		AB3107E92240FC3C00F9A531 /* XLCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3107E62240FC3C00F9A531 /* XLCalendarView.swift */; };
+		AB3107EA2240FC3C00F9A531 /* XLCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB3107E72240FC3C00F9A531 /* XLCalendarCell.swift */; };
 		AB37602A222786B10028F48B /* XLCalendarHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB376029222786B10028F48B /* XLCalendarHeaderView.swift */; };
 		AB43E24122364E40006AFDF1 /* XLCanlendarViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB43E24022364E40006AFDF1 /* XLCanlendarViewLayout.swift */; };
-		AB5959C7222922F2005976A5 /* XLCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB5959C6222922F2005976A5 /* XLCalendarView.swift */; };
-		AB943F01223A1AB60056C1C0 /* CalendarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB943F00223A1AB60056C1C0 /* CalendarVC.swift */; };
-		AB943F03223A30D60056C1C0 /* XLCalendar2DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB943F02223A30D60056C1C0 /* XLCalendar2DayView.swift */; };
 		ABA8302722267A1F0057D054 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8302622267A1F0057D054 /* AppDelegate.swift */; };
 		ABA8302922267A1F0057D054 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8302822267A1F0057D054 /* ViewController.swift */; };
 		ABA8302C22267A1F0057D054 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA8302A22267A1F0057D054 /* Main.storyboard */; };
@@ -21,19 +19,16 @@
 		ABA8303122267A200057D054 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ABA8302F22267A200057D054 /* LaunchScreen.storyboard */; };
 		ABA8303A22267B000057D054 /* XLTimeManager+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8303822267B000057D054 /* XLTimeManager+Extension.swift */; };
 		ABA8303B22267B000057D054 /* XLTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8303922267B000057D054 /* XLTimeManager.swift */; };
-		ABA8303D22267E9A0057D054 /* XLCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8303C22267E9A0057D054 /* XLCalendarCell.swift */; };
 		D2A3B91162CC2B720D7B84A5 /* Pods_default_CalendarTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7D12311FE89F93B7102C68D /* Pods_default_CalendarTest.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		A595F7E4B357617385EA28EC /* Pods-default-CalendarTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-default-CalendarTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-default-CalendarTest/Pods-default-CalendarTest.release.xcconfig"; sourceTree = "<group>"; };
-		AB261278223F2DBC004422E5 /* XLCalendar2DayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLCalendar2DayCell.swift; sourceTree = "<group>"; };
-		AB26127A223F2E0E004422E5 /* Calendar2DayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calendar2DayVC.swift; sourceTree = "<group>"; };
+		AB3107E52240FC3C00F9A531 /* CalendarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
+		AB3107E62240FC3C00F9A531 /* XLCalendarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLCalendarView.swift; sourceTree = "<group>"; };
+		AB3107E72240FC3C00F9A531 /* XLCalendarCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLCalendarCell.swift; sourceTree = "<group>"; };
 		AB376029222786B10028F48B /* XLCalendarHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLCalendarHeaderView.swift; sourceTree = "<group>"; };
 		AB43E24022364E40006AFDF1 /* XLCanlendarViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLCanlendarViewLayout.swift; sourceTree = "<group>"; };
-		AB5959C6222922F2005976A5 /* XLCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLCalendarView.swift; sourceTree = "<group>"; };
-		AB943F00223A1AB60056C1C0 /* CalendarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarVC.swift; sourceTree = "<group>"; };
-		AB943F02223A30D60056C1C0 /* XLCalendar2DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLCalendar2DayView.swift; sourceTree = "<group>"; };
 		ABA8302322267A1F0057D054 /* CalendarTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalendarTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ABA8302622267A1F0057D054 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		ABA8302822267A1F0057D054 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -43,7 +38,6 @@
 		ABA8303222267A200057D054 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ABA8303822267B000057D054 /* XLTimeManager+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XLTimeManager+Extension.swift"; sourceTree = "<group>"; };
 		ABA8303922267B000057D054 /* XLTimeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XLTimeManager.swift; sourceTree = "<group>"; };
-		ABA8303C22267E9A0057D054 /* XLCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XLCalendarCell.swift; sourceTree = "<group>"; };
 		E7D12311FE89F93B7102C68D /* Pods_default_CalendarTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_default_CalendarTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA811CE31845E5CAAA3635F1 /* Pods-default-CalendarTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-default-CalendarTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-default-CalendarTest/Pods-default-CalendarTest.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -69,24 +63,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		AB261276223F2D2C004422E5 /* OneWay */ = {
+		AB3107E42240FC3C00F9A531 /* Calendar1Day */ = {
 			isa = PBXGroup;
 			children = (
-				AB943F00223A1AB60056C1C0 /* CalendarVC.swift */,
-				AB5959C6222922F2005976A5 /* XLCalendarView.swift */,
-				ABA8303C22267E9A0057D054 /* XLCalendarCell.swift */,
+				AB3107E52240FC3C00F9A531 /* CalendarVC.swift */,
+				AB3107E62240FC3C00F9A531 /* XLCalendarView.swift */,
+				AB3107E72240FC3C00F9A531 /* XLCalendarCell.swift */,
 			);
-			path = OneWay;
-			sourceTree = "<group>";
-		};
-		AB261277223F2D60004422E5 /* RoundTrip */ = {
-			isa = PBXGroup;
-			children = (
-				AB26127A223F2E0E004422E5 /* Calendar2DayVC.swift */,
-				AB943F02223A30D60056C1C0 /* XLCalendar2DayView.swift */,
-				AB261278223F2DBC004422E5 /* XLCalendar2DayCell.swift */,
-			);
-			path = RoundTrip;
+			path = Calendar1Day;
 			sourceTree = "<group>";
 		};
 		ABA8301A22267A1F0057D054 = {
@@ -120,8 +104,7 @@
 				ABA8303222267A200057D054 /* Info.plist */,
 				AB376029222786B10028F48B /* XLCalendarHeaderView.swift */,
 				AB43E24022364E40006AFDF1 /* XLCanlendarViewLayout.swift */,
-				AB261277223F2D60004422E5 /* RoundTrip */,
-				AB261276223F2D2C004422E5 /* OneWay */,
+				AB3107E42240FC3C00F9A531 /* Calendar1Day */,
 			);
 			path = CalendarTest;
 			sourceTree = "<group>";
@@ -254,16 +237,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AB5959C7222922F2005976A5 /* XLCalendarView.swift in Sources */,
-				ABA8303D22267E9A0057D054 /* XLCalendarCell.swift in Sources */,
-				AB26127B223F2E0E004422E5 /* Calendar2DayVC.swift in Sources */,
+				AB3107E92240FC3C00F9A531 /* XLCalendarView.swift in Sources */,
 				ABA8303B22267B000057D054 /* XLTimeManager.swift in Sources */,
+				AB3107EA2240FC3C00F9A531 /* XLCalendarCell.swift in Sources */,
 				ABA8302922267A1F0057D054 /* ViewController.swift in Sources */,
 				AB43E24122364E40006AFDF1 /* XLCanlendarViewLayout.swift in Sources */,
-				AB261279223F2DBC004422E5 /* XLCalendar2DayCell.swift in Sources */,
-				AB943F01223A1AB60056C1C0 /* CalendarVC.swift in Sources */,
 				ABA8303A22267B000057D054 /* XLTimeManager+Extension.swift in Sources */,
-				AB943F03223A30D60056C1C0 /* XLCalendar2DayView.swift in Sources */,
+				AB3107E82240FC3C00F9A531 /* CalendarVC.swift in Sources */,
 				ABA8302722267A1F0057D054 /* AppDelegate.swift in Sources */,
 				AB37602A222786B10028F48B /* XLCalendarHeaderView.swift in Sources */,
 			);

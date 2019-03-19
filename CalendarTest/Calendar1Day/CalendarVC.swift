@@ -9,17 +9,32 @@
 import UIKit
 
 protocol CalendarProtocol:class {
-    func setSeletedDate(_ date:Date?)
+    func setSeletedDate(_ date:Date)
 }
 
 class CalendarVC: UIViewController {
     weak var delegate:CalendarProtocol?
     private var calendar:XLCalendarView!
+    private var _selectedDate:Date?
+    private var _minimumDate:Date?
+    private var _maximumDate:Date?
+    
+    private(set) var lowestPriceDic = [String:Any]()
+    private(set) var lowestDayOfMonth =  [String:[String]]()
+    
+    private var bottomView:UIView!
+    convenience init(selectedDate:Date?, minimumDate minDate:Date? = nil, maximumDate maxDate:Date? = nil) {
+        self.init()
+        self._selectedDate = selectedDate
+        self._minimumDate = minDate
+        self._maximumDate = maxDate
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.view.backgroundColor = UIColor.white
-        let calendarView = XLCalendarView.init(selectedDate: Date())
+        let calendarView = XLCalendarView.init(selectedDate: self._selectedDate, minDate: self._minimumDate, maxDate: self._maximumDate)
         self.calendar = calendarView
         self.view.addSubview(calendarView)
         let bottomView = getBottomView()
@@ -32,13 +47,23 @@ class CalendarVC: UIViewController {
         
         bottomView.snp.makeConstraints { (make) in
             make.height.equalTo(55)
-            make.left.bottom.right.equalToSuperview()
+            make.left.right.equalToSuperview()
+             make.bottom.equalToSuperview().offset(-0)
         }
-        
+        self.bottomView = bottomView
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.bottomView.snp.updateConstraints { (make) in
+            make.bottom.equalToSuperview().offset(-kSafeBottomHeiht)
+        }
     }
     
     @objc private func confirmAction() {
-        delegate?.setSeletedDate(calendar.selectedDate)
+        if let sdate = self.calendar.selectedDate {
+            delegate?.setSeletedDate(sdate)
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func getBottomView() -> UIView {
@@ -64,5 +89,21 @@ class CalendarVC: UIViewController {
             make.height.equalTo(40)
         }
         return content
+    }
+    
+    var kSafeBottomHeiht:CGFloat {
+        get {
+            if #available(iOS 11.0, *) {
+                return self.view.safeAreaInsets.bottom
+            }
+            else {
+                if self.hidesBottomBarWhenPushed {
+                    return 0
+                }
+                else {
+                    return 49
+                }
+            }
+        }
     }
 }

@@ -23,11 +23,23 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
     private var firstDayInMonth = [Date]()
 
     
-    convenience init(selectedDate:Date?) {
+    convenience init(selectedDate:Date?, minDate:Date?=nil, maxDate:Date?=nil) {
         self.init(frame: .zero)
         self.today = Date().getGMT0ClockDate()
-        self.minDate = self.minDate.getGMT0ClockDate()
-        self.maxDate = self.minDate.adding(day: 0, month: 0, year: 1)!
+        if let min = minDate {
+            self.minDate = min.getGMT0ClockDate()
+        } else {
+            self.minDate = self.minDate.getGMT0ClockDate()
+        }
+        if let max = maxDate {
+            self.maxDate = max.getGMT0ClockDate()
+        } else {
+            self.maxDate = self.minDate.adding(day: 0, month: 0, year: 1)!
+        }
+        guard self.maxDate.isAfter(self.minDate) || self.maxDate.isSameDay(self.minDate) else {
+            return
+        }
+        
         self.allMonth = self.minDate.differMonths(date: self.maxDate)+1
         guard self.allMonth>0 else { return }
         
@@ -59,6 +71,10 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
         return daysInMonth!.count
     }
     
+    func reloadData() {
+        self.collectionView.reloadData()
+    }
+    
     //MARK: ------------- DataSource & Delegate----------------------
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -81,11 +97,7 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellid, for: indexPath) as! XLCalendarCell
         cell.calendar = self
         let date = self.indexpath2Date(indexPath)
-        if date != nil {
-            cell.setDate(date)
-        } else {
-            cell.setDate(nil)
-        }
+        cell.setDate(date)
         return cell
     }
     
@@ -201,7 +213,7 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
             weekView.addSubview(weeklabel)
         }
         weekView.layer.shadowOpacity = 0.16
-        weekView.layer.shadowOffset = CGSize.init(width: 0, height: 3)
+        weekView.layer.shadowOffset = CGSize.init(width: 0, height: 2)
         weekView.layer.shadowColor = UIColor.black.cgColor
         weekView.layer.shadowRadius = 2
         return weekView

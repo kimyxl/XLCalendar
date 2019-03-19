@@ -11,10 +11,12 @@ import UIKit
 class XLCalendarCell: UICollectionViewCell {
     
     weak var calendar:XLCalendarView?
+    var priceDic = [String:Any]()
+    var lowestDayOfMonth = [String:[String]]()
     
     private var theLable:UILabel!
     private var calendarDate:Date?
-    
+    private var subLabel:UILabel!
     private var selectionView:UIView!
     
     override init(frame: CGRect) {
@@ -31,6 +33,19 @@ class XLCalendarCell: UICollectionViewCell {
         self.contentView.addSubview(label)
         theLable = label
         
+        let subLabel = UILabel()
+        subLabel.backgroundColor = UIColor.clear
+        subLabel.textAlignment = .center
+        subLabel.textColor = UIColor.black
+        subLabel.font = UIFont.systemFont(ofSize: 11)
+        subLabel.textColor = kColorGreyWord
+        self.contentView.addSubview(subLabel)
+        self.subLabel = subLabel
+        subLabel.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.top.equalTo(theLable.snp.bottom).offset(-5)
+        }
+        
         selectionView = UIView()
         selectionView.backgroundColor = UIColor.clear
         selectionView.alpha = 1
@@ -42,7 +57,8 @@ class XLCalendarCell: UICollectionViewCell {
             make.center.equalToSuperview()
         }
         
-        self.contentView.bringSubviewToFront(theLable)
+        self.contentView.bringSubviewToFront(self.theLable)
+        self.contentView.bringSubviewToFront(self.subLabel)
     }
     
     func setDate(_ date:Date?) {
@@ -53,11 +69,13 @@ class XLCalendarCell: UICollectionViewCell {
                 theLable.text = ""
                 theLable.textColor = UIColor.clear
                 selectionView.backgroundColor = UIColor.clear
+                subLabel.text = ""
             }
         }
         if date != nil {
             var textColor:UIColor = UIColor.black
             var selectedBgBolor = UIColor.clear
+            var subTitleColor = kColorGreyWord
             //范围判断
             theLable.text = "\(date!.day_digital())"
             let bool1 = date!.isBefore(calendarExsit.minDate)
@@ -67,19 +85,33 @@ class XLCalendarCell: UICollectionViewCell {
             } else {
                 textColor = UIColor.black
             }
+            //最低价判断
+            if self.lowestDayOfMonth.count>0 {
+                let dateStr = "\(date!.year())-\(date!.month())"
+                let dayStr = "\(date!.day())"
+                if let dayStrL = self.lowestDayOfMonth[dateStr] {
+                    if dayStrL.contains(dayStr)  {
+                        subTitleColor = kColorThemeGreen
+                    }
+                }
+            }
+            
             //选中判断
             if let calendarSelectedExsit = calendarExsit.selectedDate {
                 if date!.isSameDay(calendarSelectedExsit) {
                     textColor = UIColor.white
                     selectedBgBolor = kColorThemeColor
+                    subTitleColor = kColorWhite
                     self.selectionView.transform = self.selectionView.transform.scaledBy(x: 0.5, y: 0.5)
                     UIView.animate(withDuration: 0.06, animations: {
                         self.selectionView.transform = self.selectionView.transform.scaledBy(x: 2, y: 2)
                     })
                 }
             }
+            
             theLable.textColor = textColor
             selectionView.backgroundColor = selectedBgBolor
+            subLabel.textColor = subTitleColor
         }
     }
     
