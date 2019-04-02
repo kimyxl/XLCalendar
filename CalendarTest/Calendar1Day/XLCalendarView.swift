@@ -21,18 +21,18 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
     private var weekView:UIView?
     private var allMonth = 13
     private var firstDayInMonth = [Date]()
-
+    
     
     convenience init(selectedDate:Date?, minDate:Date?=nil, maxDate:Date?=nil) {
         self.init(frame: .zero)
-        self.today = Date().getGMT0ClockDate()
+        self.today = Date().get0ClockDate()
         if let min = minDate {
-            self.minDate = min.getGMT0ClockDate()
+            self.minDate = min.get0ClockDate()
         } else {
-            self.minDate = self.minDate.getGMT0ClockDate()
+            self.minDate = self.minDate.get0ClockDate()
         }
         if let max = maxDate {
-            self.maxDate = max.getGMT0ClockDate()
+            self.maxDate = max.get0ClockDate()
         } else {
             self.maxDate = self.minDate.adding(day: 0, month: 0, year: 1)!
         }
@@ -45,7 +45,7 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
         
         if let selectedDate = selectedDate {
             if selectedDate.isBefore(self.maxDate) && selectedDate.isAfter(self.minDate) || selectedDate.isSameDay(self.maxDate) || selectedDate.isSameDay(self.minDate) {
-                self.selectedDate = selectedDate.getGMT0ClockDate()
+                self.selectedDate = selectedDate.get0ClockDate()
             }
         }
         self.createUI()
@@ -153,7 +153,7 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
     
     //MARK: ----  UI
     private func createUI() {
-
+        
         NotificationCenter.default.addObserver(self, selector: #selector(receiveNoti(_:)), name: NSNotification.Name(rawValue: "XLCanlendarViewLayoutCalculateItemWidthDone"), object: nil)
         
         let year = self.today.year_digital()
