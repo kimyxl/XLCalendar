@@ -24,16 +24,40 @@ import Foundation
 
 
 class XLTimeManager {
-    static let calendar:Calendar = {
+    static var calendar:Calendar {
+        get {
+            calendar_gregorian.timeZone = TimeZone.current
+            return calendar_gregorian
+        }
+    }
+    static private var calendar_gregorian:Calendar = {
         var calendar = Calendar.init(identifier: .gregorian)
         return calendar
     }()
-    fileprivate static let formatter:DateFormatter = {
+    
+    fileprivate static var formatter:DateFormatter {
+        get {
+            formatter_default.timeZone = TimeZone.current
+            return formatter_default
+        }
+    }
+    static private let formatter_default:DateFormatter = {
         let formatter = DateFormatter.init()
         let locale = Locale.init(identifier: "en_US")
         formatter.locale = locale
         return formatter
     }()
+    
+    class func createADay(year:Int, month:Int, day:Int) -> Date? {
+        var components = DateComponents.init()
+        components.day = day
+        components.month = month
+        components.year = year
+        components.timeZone = TimeZone.current
+        let date = calendar.date(from: components)
+        return date
+    }
+    
     fileprivate static let formatterGMT:DateFormatter = {
         let formatter = DateFormatter.init()
         formatter.timeZone = TimeZone.init(identifier: "GMT")!
@@ -41,20 +65,14 @@ class XLTimeManager {
         formatter.locale = locale
         return formatter
     }()
+    
     fileprivate class func dateComponents(_ date:Date) -> DateComponents {
         let dateComponents = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year, Calendar.Component.weekOfYear, Calendar.Component.hour, Calendar.Component.minute, Calendar.Component.second, Calendar.Component.weekday, Calendar.Component.timeZone], from: date)
         return dateComponents
     }
-    class func createADay(year:Int, month:Int, day:Int) -> Date? {
-        var components = DateComponents.init()
-        components.day = day
-        components.month = month
-        components.year = year
-        let date = calendar.date(from: components)
-        return date
-    }
 }
 
+//Date与string转换，不涉及时区问题
 extension String {
     func dateFromFormatter(type formatterType:String2DateFormatterEnum) -> Date? {
         XLTimeManager.formatter.dateFormat = formatterType.rawValue
@@ -113,14 +131,14 @@ extension Date {
         if days == 0 { return true }
         return false
     }
-    ///不包含!
-    func isBefore(_ beforeDate:Date) -> Bool {
+    ///不包含，以“天”为单位判断
+    func isBeforeDay(_ beforeDate:Date) -> Bool {
         let days = self.dayInterval(another: beforeDate)
         if days > 0 { return true }
         return false
     }
-    ///不包含!
-    func isAfter(_ afterDay:Date) -> Bool {
+    ///不包含，以“天”为单位判断
+    func isAfterDay(_ afterDay:Date) -> Bool {
         let days = self.dayInterval(another: afterDay)
         if days < 0 { return true }
         return false
@@ -246,3 +264,4 @@ extension TimeInterval {
         return date
     }
 }
+

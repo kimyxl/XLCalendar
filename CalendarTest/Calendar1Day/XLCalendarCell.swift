@@ -78,8 +78,8 @@ class XLCalendarCell: UICollectionViewCell {
             var subTitleColor = kColorGreyWord
             //范围判断
             theLable.text = "\(date!.day_digital())"
-            let bool1 = date!.isBefore(calendarExsit.minDate)
-            let bool2 = date!.isAfter(calendarExsit.maxDate)
+            let bool1 = date!.isBeforeDay(calendarExsit.minDate)
+            let bool2 = date!.isAfterDay(calendarExsit.maxDate)
             if bool1 || bool2 {
                 textColor = UIColor.lightGray
             } else {

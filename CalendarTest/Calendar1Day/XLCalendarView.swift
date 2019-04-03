@@ -36,7 +36,7 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
         } else {
             self.maxDate = self.minDate.adding(day: 0, month: 0, year: 1)!
         }
-        guard self.maxDate.isAfter(self.minDate) || self.maxDate.isSameDay(self.minDate) else {
+        guard self.maxDate.isAfterDay(self.minDate) || self.maxDate.isSameDay(self.minDate) else {
             return
         }
         
@@ -44,7 +44,7 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
         guard self.allMonth>0 else { return }
         
         if let selectedDate = selectedDate {
-            if selectedDate.isBefore(self.maxDate) && selectedDate.isAfter(self.minDate) || selectedDate.isSameDay(self.maxDate) || selectedDate.isSameDay(self.minDate) {
+            if selectedDate.isBeforeDay(self.maxDate) && selectedDate.isAfterDay(self.minDate) || selectedDate.isSameDay(self.maxDate) || selectedDate.isSameDay(self.minDate) {
                 self.selectedDate = selectedDate.get0ClockDate()
             }
         }
@@ -112,8 +112,8 @@ class XLCalendarView: UIView, UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let date = self.indexpath2Date(indexPath)
         guard let dateExsit = date else {return}
-        let bool1 = dateExsit.isAfter(self.minDate)
-        let bool2 = dateExsit.isBefore(self.maxDate)
+        let bool1 = dateExsit.isAfterDay(self.minDate)
+        let bool2 = dateExsit.isBeforeDay(self.maxDate)
         let bool3 = (dateExsit.isSameDay(self.minDate))
         let bool4 = (dateExsit.isSameDay(self.maxDate))
         if (bool1 && bool2) || bool3 || bool4 {
